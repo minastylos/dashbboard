@@ -1,0 +1,167 @@
+/* ========== FINANCEIRO PAGE ========== */
+.financeiro-page {
+  max-width: 1100px;
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.finance-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+/* Balance Breakdown */
+.balance-breakdown {
+  margin-bottom: var(--space-xl);
+}
+
+.balance-breakdown .section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.breakdown-items {
+  margin-top: var(--space-md);
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.breakdown-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-green { background: var(--accent-400); }
+.dot-red { background: var(--warn-400); }
+.dot-blue { background: var(--primary-400); }
+
+.breakdown-value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.95rem;
+}
+
+.breakdown-value.positive { color: var(--accent-400); }
+.breakdown-value.negative { color: var(--warn-400); }
+
+.breakdown-divider {
+  height: 1px;
+  background: var(--border-default);
+  margin: var(--space-sm) 0;
+}
+
+.breakdown-total .breakdown-label {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.breakdown-total .breakdown-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+/* Transaction History */
+.transaction-history {
+  margin-top: var(--space-xl);
+}
+
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+}
+
+.transaction-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.transaction-item.aporte .transaction-icon-wrapper {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--accent-400);
+}
+
+.transaction-item.retirada .transaction-icon-wrapper {
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--warn-400);
+}
+
+.transaction-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-desc {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.transaction-date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.transaction-amount-col {
+  text-align: right;
+}
+
+.transaction-amount {
+  font-weight: 800;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.transaction-amount.aporte { color: var(--accent-400); }
+.transaction-amount.retirada { color: var(--warn-400); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .finance-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .finance-stats {
+    grid-template-columns: 1fr;
+  }
+  .header-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+}

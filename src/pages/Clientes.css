@@ -1,0 +1,341 @@
+/* ========== CLIENTES PAGE ========== */
+.clientes-page {
+  max-width: 1100px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+/* Search bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 6px 16px;
+  margin-bottom: var(--space-lg);
+}
+
+.search-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  outline: none;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Client cards */
+.clients-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.client-card {
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.client-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.client-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.client-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.client-details h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.client-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.client-actions-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.btn-icon-delete {
+  color: var(--text-muted);
+}
+.btn-icon-delete:hover {
+  color: var(--warn-400);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Loans inside client */
+.client-loans {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.no-loans-text {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.loan-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.loan-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.loan-item-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.loan-guarantee {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.loan-guarantee-value {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.loan-numbers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.loan-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.loan-stat-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.loan-stat-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.loan-stat-value.accent {
+  color: var(--accent-400);
+}
+
+.loan-progress {
+  margin-top: var(--space-sm);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+/* Loan Preview in modal */
+.loan-preview {
+  background: rgba(99, 102, 241, 0.06);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.loan-preview-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  color: var(--primary-300);
+}
+
+.loan-preview-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 0.88rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.loan-preview-row:last-child {
+  border-bottom: none;
+}
+
+.loan-preview-row span {
+  color: var(--text-secondary);
+}
+
+.accent-text {
+  color: var(--accent-400) !important;
+}
+
+/* Loan modal: cash info */
+.loan-cash-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+}
+
+.loan-cash-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.loan-cash-value {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent-400);
+  font-variant-numeric: tabular-nums;
+}
+
+.loan-cash-value.negative {
+  color: var(--warn-400);
+}
+
+/* Error banner */
+.loan-error-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: 12px 16px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+  color: var(--warn-400);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.loan-error-banner svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Input error */
+.input-error {
+  border-color: var(--warn-400) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12) !important;
+}
+
+.input-error-text {
+  font-size: 0.75rem;
+  color: var(--warn-400);
+  margin-top: 4px;
+}
+
+/* Disabled states */
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Inline Delete Confirmation */
+.confirm-delete-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: rgba(239, 68, 68, 0.1);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  animation: slideInLeft 0.2s ease;
+}
+
+.confirm-delete-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--warn-400);
+  margin-right: 4px;
+}
+
+.btn-confirm-yes {
+  background: var(--warn-500) !important;
+  color: white !important;
+}
+
+.btn-confirm-yes:hover {
+  background: var(--warn-600) !important;
+}
+
