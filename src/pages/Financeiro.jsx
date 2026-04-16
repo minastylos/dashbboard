@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import Modal from '../components/Modal';
 import { useDataSync } from '../lib/useDataSync';
+import { useAuth } from '../lib/AuthContext';
 import { getTransactions, saveTransaction, deleteTransaction, getLoans } from '../utils/storage';
 import { generateId, formatCurrency, formatDate, calculateCashBalance } from '../utils/calculations';
 import './Financeiro.css';
@@ -18,6 +19,7 @@ import './Financeiro.css';
 export default function FinanceiroPage() {
   const [transactions, setTransactions] = useState([]);
   const [loans, setLoans] = useState([]);
+  const { isAdmin } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [transactionType, setTransactionType] = useState('aporte');
   const [form, setForm] = useState({
@@ -96,6 +98,7 @@ export default function FinanceiroPage() {
     <div className="financeiro-page animate-fade-in">
       <div className="page-header">
         <h1 className="page-title">Financeiro</h1>
+        {isAdmin && (
         <div className="header-actions">
           <button className="btn btn-accent" onClick={() => openModal('aporte')}>
             <ArrowUpCircle size={18} />
@@ -106,6 +109,7 @@ export default function FinanceiroPage() {
             Nova Retirada
           </button>
         </div>
+        )}
       </div>
 
       {/* Summary Cards */}
@@ -224,7 +228,8 @@ export default function FinanceiroPage() {
                   </span>
                 </div>
                 <div className="transaction-actions">
-                  {!isConfirmingDelete ? (
+                  {isAdmin && (
+                  !isConfirmingDelete ? (
                     <button
                       className="btn btn-ghost btn-sm btn-icon-delete"
                       onClick={() => setConfirmDelete(t.id)}
@@ -247,6 +252,7 @@ export default function FinanceiroPage() {
                         <X size={14} />
                       </button>
                     </div>
+                  )
                   )}
                 </div>
               </div>

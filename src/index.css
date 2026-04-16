@@ -756,3 +756,59 @@ img {
     grid-template-columns: 1fr;
   }
 }
+/* ========== LOGIN MODAL ========== */
+.login-toggle {
+  text-align: center;
+  margin-top: var(--space-md);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--primary-400);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+.login-error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--warn-400);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+  font-size: 0.9rem;
+}
+
+.login-success {
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+.login-success p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--accent-400);
+  margin-bottom: var(--space-sm);
+}
+
+.login-success .login-success-sub {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-bottom: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+}

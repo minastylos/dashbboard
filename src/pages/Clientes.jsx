@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Trash2, Search, UserPlus, FileText, AlertCircle, X, Check } from 'lucide-react';
 import Modal from '../components/Modal';
 import { useDataSync } from '../lib/useDataSync';
+import { useAuth } from '../lib/AuthContext';
 import {
   getClients,
   saveClient,
@@ -26,6 +27,7 @@ import './Clientes.css';
 
 export default function ClientesPage() {
   const [clients, setClients] = useState([]);
+  const { isAdmin } = useAuth();
   const [loans, setLoans] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [search, setSearch] = useState('');
@@ -182,10 +184,12 @@ export default function ClientesPage() {
     <div className="clientes-page animate-fade-in">
       <div className="page-header">
         <h1 className="page-title">Clientes & Empréstimos</h1>
+        {isAdmin && (
         <button className="btn btn-primary" onClick={() => setShowClientModal(true)}>
           <UserPlus size={18} />
           Novo Cliente
         </button>
+        )}
       </div>
 
       {/* Search */}
@@ -238,6 +242,7 @@ export default function ClientesPage() {
                     <span className="badge badge-info">
                       {clientLoans.length} empréstimo{clientLoans.length !== 1 ? 's' : ''}
                     </span>
+                    {isAdmin && (
                     <button
                       className="btn btn-accent btn-sm"
                       onClick={() => openLoanModal(client)}
@@ -245,9 +250,11 @@ export default function ClientesPage() {
                       <Plus size={14} />
                       Empréstimo
                     </button>
+                    )}
 
                     {/* Delete with inline confirmation */}
-                    {!isConfirmingDelete ? (
+                    {isAdmin && (
+                    !isConfirmingDelete ? (
                       <button
                         className="btn btn-danger btn-sm"
                         onClick={() => setConfirmDeleteClient(client.id)}
@@ -273,6 +280,7 @@ export default function ClientesPage() {
                           Não
                         </button>
                       </div>
+                    )
                     )}
                   </div>
                 </div>
@@ -307,7 +315,8 @@ export default function ClientesPage() {
                               </div>
 
                               {/* Loan delete with inline confirmation */}
-                              {!isConfirmingLoanDelete ? (
+                              {isAdmin && (
+                              !isConfirmingLoanDelete ? (
                                 <button
                                   className="btn btn-ghost btn-sm btn-icon-delete"
                                   onClick={() => setConfirmDeleteLoan(loan.id)}
@@ -330,6 +339,7 @@ export default function ClientesPage() {
                                     <X size={14} />
                                   </button>
                                 </div>
+                              )
                               )}
                             </div>
 

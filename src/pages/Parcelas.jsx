@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { CalendarCheck, ChevronLeft, ChevronRight, Filter, Clock, AlertTriangle, CheckCircle, Calendar } from 'lucide-react';
 import { useDataSync } from '../lib/useDataSync';
+import { useAuth } from '../lib/AuthContext';
 import { getClients, getLoans, updateLoanInstallment } from '../utils/storage';
 import {
   formatCurrency,
@@ -13,6 +14,7 @@ import './Parcelas.css';
 export default function ParcelasPage() {
   const [clients, setClients] = useState([]);
   const [loans, setLoans] = useState([]);
+  const { isAdmin } = useAuth();
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split('T')[0]
   );
@@ -198,6 +200,7 @@ export default function ParcelasPage() {
               className={`installment-card glass-card ${inst.paid ? 'paid' : ''}`}
             >
               <div className="installment-left">
+                {isAdmin ? (
                 <label className="custom-checkbox checkbox-lg">
                   <input
                     type="checkbox"
@@ -216,6 +219,11 @@ export default function ParcelasPage() {
                     </svg>
                   </span>
                 </label>
+                ) : (
+                  <div style={{ width: 24, height: 24, paddingLeft: 8 }}>
+                    {inst.paid && <CheckCircle size={18} className="text-success" />}
+                  </div>
+                )}
               </div>
 
               <div className="installment-info">

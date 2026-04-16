@@ -10,6 +10,7 @@ import {
   Clock,
 } from 'lucide-react';
 import { useDataSync } from '../lib/useDataSync';
+import { useAuth } from '../lib/AuthContext';
 import { getClients, getLoans, getTransactions, updateLoanInstallment } from '../utils/storage';
 import {
   calculateCashBalance,
@@ -27,6 +28,7 @@ export default function DashboardPage() {
   const [clients, setClients] = useState([]);
   const [loans, setLoans] = useState([]);
   const [transactions, setTransactions] = useState([]);
+  const { isAdmin } = useAuth();
   useEffect(() => {
     loadData();
   }, []);
@@ -206,6 +208,7 @@ export default function DashboardPage() {
                       )}
                     </td>
                     <td>
+                      {isAdmin && (
                       <label className="custom-checkbox">
                         <input
                           type="checkbox"
@@ -224,6 +227,7 @@ export default function DashboardPage() {
                           </svg>
                         </span>
                       </label>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -267,6 +271,7 @@ export default function DashboardPage() {
                     <td className="text-warn">{formatDate(inst.date)}</td>
                     <td className="font-mono">{formatCurrency(inst.value)}</td>
                     <td>
+                      {isAdmin && (
                       <label className="custom-checkbox">
                         <input
                           type="checkbox"
@@ -285,6 +290,7 @@ export default function DashboardPage() {
                           </svg>
                         </span>
                       </label>
+                      )}
                     </td>
                   </tr>
                 ))}
