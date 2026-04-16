@@ -1,22 +1,34 @@
 import { useEffect } from 'react';
-import { supabase } from './supabase';
 
+const channel = new BroadcastChannel('emprestimo_express_sync');
+
+/**
+ * Escuta mudanças vindas de OUTRAS abas do mesmo navegador.
+ * Quando qualquer aba salva/deleta dados, as outras abas recebem o aviso
+ * e executam o callback (que normalmente recarrega os dados).
+ */
 export function useDataSync(onUpdate) {
   useEffect(() => {
-    const channel = supabase
-      .channel('schema-db-changes')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public' },
-        (payload) => {
-          console.log('Realtime change received!', payload);
-          if (onUpdate) onUpdate();
-        }
-      )
-      .subscribe();
+    function handleBroadcast(event) {
+      if (event.data?.type === 'data_changed' && onUpdate) {
+        onUpdate();
+      }
+    }
+
+    // BroadcastChannel – abas na mesma origem
+    channel.addEventListener('message', handleBroadcast);
+
+    // storage event – fallback cross-tab (só dispara em OUTRAS abas)
+    function handleStorage(event) {
+      if (event.key?.startsWith('ee_') && onUpdate) {
+        onUpdate();
+      }
+    }
+    window.addEventListener('storage', handleStorage);
 
     return () => {
-      supabase.removeChannel(channel);
+      channel.removeEventListener('message', handleBroadcast);
+      window.removeEventListener('storage', handleStorage);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

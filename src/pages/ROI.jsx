@@ -21,16 +21,14 @@ import './ROI.css';
 export default function ROIPage() {
   const [loans, setLoans] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadData();
   }, []);
 
-  useDataSync(() => loadData(true));
+  useDataSync(() => loadData());
 
-  async function loadData(isRealtime = false) {
-    if (!isRealtime) setLoading(true);
+  async function loadData() {
     try {
       const [l, t] = await Promise.all([
         getLoans(),
@@ -40,8 +38,6 @@ export default function ROIPage() {
       setTransactions(t);
     } catch (err) {
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   }
 

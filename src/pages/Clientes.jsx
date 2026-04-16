@@ -34,8 +34,6 @@ export default function ClientesPage() {
   const [selectedClient, setSelectedClient] = useState(null);
   const [expandedClient, setExpandedClient] = useState(null);
   const [loanError, setLoanError] = useState('');
-  const [loading, setLoading] = useState(true);
-
   // Confirm delete states
   const [confirmDeleteClient, setConfirmDeleteClient] = useState(null);
   const [confirmDeleteLoan, setConfirmDeleteLoan] = useState(null);
@@ -53,39 +51,20 @@ export default function ClientesPage() {
     loadData();
   }, []);
 
-  useDataSync(() => loadData(true));
+  useDataSync(() => loadData());
 
-  async function loadData(isRealtime = false) {
-    if (!isRealtime) setLoading(true);
+  async function loadData() {
     try {
       const [c, l, t] = await Promise.all([
         getClients(),
         getLoans(),
         getTransactions()
       ]);
-
-      const mappedLoans = l.map(loan => ({
-        ...loan,
-        clientId: loan.client_id,
-        loanAmount: parseFloat(loan.loan_amount),
-        totalToReceive: parseFloat(loan.total_to_receive),
-        installmentValue: parseFloat(loan.installment_value),
-        guaranteeValue: parseFloat(loan.guarantee_value),
-        loanDate: loan.loan_date
-      }));
-
-      const mappedTransactions = t.map(trans => ({
-        ...trans,
-        amount: parseFloat(trans.amount)
-      }));
-
       setClients(c);
-      setLoans(mappedLoans);
-      setTransactions(mappedTransactions);
+      setLoans(l);
+      setTransactions(t);
     } catch (err) {
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -317,7 +296,7 @@ export default function ClientesPage() {
                               <div className="loan-item-info">
                                 <div className="loan-guarantee">
                                   <FileText size={14} />
-                                  <span>{loan.guarantee_item}</span>
+                                  <span>{loan.guaranteeItem}</span>
                                   <span className="loan-guarantee-value">
                                     (avaliação: {formatCurrency(loan.guaranteeValue)})
                                   </span>

@@ -16,7 +16,6 @@ export default function ParcelasPage() {
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split('T')[0]
   );
-  const [loading, setLoading] = useState(true);
   
   // Filters: today, overdue, paid, future, all
   const [filterStatus, setFilterStatus] = useState('today');
@@ -25,29 +24,18 @@ export default function ParcelasPage() {
     loadData();
   }, []);
 
-  useDataSync(() => loadData(true));
+  useDataSync(() => loadData());
 
-  async function loadData(isRealtime = false) {
-    if (!isRealtime) setLoading(true);
+  async function loadData() {
     try {
       const [c, l] = await Promise.all([
         getClients(),
         getLoans()
       ]);
-
-      const mappedLoans = l.map(loan => ({
-        ...loan,
-        clientId: loan.client_id,
-        loanAmount: parseFloat(loan.loan_amount),
-        loanDate: loan.loan_date
-      }));
-
       setClients(c);
-      setLoans(mappedLoans);
+      setLoans(l);
     } catch (err) {
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   }
 

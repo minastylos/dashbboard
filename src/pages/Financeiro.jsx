@@ -26,38 +26,23 @@ export default function FinanceiroPage() {
     date: new Date().toISOString().split('T')[0],
   });
   const [confirmDelete, setConfirmDelete] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadData();
   }, []);
 
-  useDataSync(() => loadData(true));
+  useDataSync(() => loadData());
 
-  async function loadData(isRealtime = false) {
-    if (!isRealtime) setLoading(true);
+  async function loadData() {
     try {
       const [t, l] = await Promise.all([
         getTransactions(),
         getLoans()
       ]);
-
-      const mappedTransactions = t.map(trans => ({
-        ...trans,
-        amount: parseFloat(trans.amount)
-      }));
-
-      const mappedLoans = l.map(loan => ({
-        ...loan,
-        loanAmount: parseFloat(loan.loan_amount),
-      }));
-
-      setTransactions(mappedTransactions);
-      setLoans(mappedLoans);
+      setTransactions(t);
+      setLoans(l);
     } catch (err) {
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   }
 

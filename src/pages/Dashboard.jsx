@@ -27,47 +27,24 @@ export default function DashboardPage() {
   const [clients, setClients] = useState([]);
   const [loans, setLoans] = useState([]);
   const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     loadData();
   }, []);
 
-  useDataSync(() => loadData(true));
+  useDataSync(() => loadData());
 
-  async function loadData(isRealtime = false) {
-    if (!isRealtime) setLoading(true);
+  async function loadData() {
     try {
       const [c, l, t] = await Promise.all([
         getClients(),
         getLoans(),
         getTransactions()
       ]);
-
-      // Map back snake_case to camelCase if necessary, or update calculations to handle both
-      // For simplicity, let's map clientId to client_id in the calculations or here
-      const mappedLoans = l.map(loan => ({
-        ...loan,
-        clientId: loan.client_id,
-        loanAmount: parseFloat(loan.loan_amount),
-        totalToReceive: parseFloat(loan.total_to_receive),
-        installmentValue: parseFloat(loan.installment_value),
-        guaranteeValue: parseFloat(loan.guarantee_value),
-        loanDate: loan.loan_date
-      }));
-
-      const mappedTransactions = t.map(trans => ({
-        ...trans,
-        amount: parseFloat(trans.amount)
-      }));
-
       setClients(c);
-      setLoans(mappedLoans);
-      setTransactions(mappedTransactions);
+      setLoans(l);
+      setTransactions(t);
     } catch (err) {
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   }
 
