@@ -1,8 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Essas informações você obtém ao criar um projeto no Supabase (supabase.com)
-// Settings -> API
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://sua-url-aqui.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'SUA_CHAVE_ANON_AQUI';
+const supabaseUrl = 'https://pthjoefznifyymzsfasi.supabase.co';
+const supabaseAnonKey = 'sb_publishable_yfh35uc-dVaAvJcs_iTYmg_hwkwPOwY';
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
